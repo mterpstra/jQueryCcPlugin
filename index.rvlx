@@ -1,0 +1,116 @@
+<html>
+
+  <head>
+    <script type='text/javascript'>
+      function visa_success(config)
+      {
+        console.log ('Successfull Visa Entered.  Log the scope of this function.');
+        console.log (this);  // Scope should be the result element.
+        console.log (config); // Passing the configuration of the matching card type.
+      }
+
+    </script>
+    <style>
+    .invalid
+    {
+      background:#ff0000;
+    }
+
+    .luhn
+    {
+      background:#880000;
+    }
+
+    .visa
+    {
+      background:#ff0000;
+    }
+    div.visa
+    {
+      background-image:url('CardTypes.jpg');
+      background-repeat:none;
+      background-position:0 0;
+      width:50px;
+    }
+
+    .mastercard
+    {
+      background:#00dd00;
+    }
+
+    div.mastercard
+    {
+      background-image:url('CardTypes.jpg');
+      background-repeat:none;
+      background-position:-50px 0;
+      width:35px;
+    }
+
+    .result
+    {
+      width:20px;
+      height:20px;
+    }
+    </style>
+
+    <script type="text/javascript" src="../../../js/jquery/1.7.1/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="jquery.rvlxCreditCardValidation.js"></script>
+    <script type="text/javascript" language="JavaScript">
+      function go_visa()
+      {
+        //alert ('You entered a visa card - Maybe show your CVV Prompt Now.');
+        console.debug('You entered a visa card - Maybe show your CVV Prompt Now.');
+      } 
+
+      $(document).ready(function () {
+
+        var options =
+        {
+          'visa':
+          {
+            'css':'visa primary_visa',
+            'onSuccess' : visa_success
+          },
+
+          'mastercard':
+          {
+            'css':'mastercard',
+            'active' : false
+          }
+        };
+
+        // Use the default settings.
+        $('.cc').validateCreditCard();
+
+        // Use just these cards.
+        $('#input_1').validateCreditCard(options);
+
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Customer Profile</h1>
+    <h3>Your profile allows for up to 3 credit cards to be stored.</h3>
+    <p><i>The first card must be a Visa card.</i></p>
+    <table border='1'>
+      <tr>
+        <td>Enter Card: </td>
+        <td><input id='input_1'  data-result='#result_1' class='cc'/></td>
+        <td><div   id='result_1' class='result'></div></td>
+      </tr>
+
+      <tr>
+        <td>Enter Card: </td>
+        <td><input id='input_2'  class='cc'/></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td>Enter Card: </td>
+        <td><input id='input_3'  data-result='#input_3' class='cc'/></td>
+        <td><div   id='result_3' class='result'></div></td>
+      </tr>
+    </table>
+  </body>
+</html>
